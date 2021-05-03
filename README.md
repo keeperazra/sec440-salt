@@ -1,2 +1,2 @@
-# sec440-salt
-Exploiting salt because it's fun :)
+# sec440-wordpress
+Exploiting wordpress because it's fun :)
