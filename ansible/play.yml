@@ -1,0 +1,42 @@
+---
+
+  - name: Install wordpress (db is pre-installed!)
+    hosts: all
+    become: yes
+    tasks:
+
+      - name: Start mysql
+        ansible.builtin.service:
+          name: mysql
+          state: started
+          enabled: yes
+
+      - name: Start apache2
+        ansible.builtin.service:
+          name: apache2
+          state: started
+          enabled: yes
+
+      - name: Unpack wordpress.tar
+        ansible.builtin.unarchive:
+          src: files/wordpress.tar
+          dest: /var/www/html/
+          owner: www-data
+          group: www-data
+
+      - name: Put in hint
+        ansible.builtin.copy:
+          src: files/secrets.txt
+          dest: /var/www/html/wp-content/plugins/wp-file-manager/lib/files/secrets.txt
+          owner: www-data
+          group: www-data
+
+      - name: Hide flag
+        ansible.builtin.lineinfile:
+          path: /var/secrets/flag.txt
+          create: yes
+          line: 5494cfb83136f8911b2d7a9acb37a97f
+          mode: 0640
+          owner: www-data
+          group: www-data
+
